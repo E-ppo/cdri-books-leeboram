@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { ROUTES } from "@/constants/routes";
-import Layout from "@/components/Layout/Layout";
+import Layout from "@/Layout";
 import SearchPage from "@/pages/Search/SearchPage";
 import WishlistPage from "@/pages/Wishlist/WishlistPage";
 
