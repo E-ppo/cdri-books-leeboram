@@ -20,19 +20,38 @@ export default function SearchBar({
   classNames,
 }: SearchBarProps) {
   const [isFocused, setIsFocused] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const showHistory = isFocused && searchHistory.length > 0;
 
   const handleSubmit = () => {
-    if (keyword.trim() === '') return;
-    onSearch({ keyword: keyword.trim(), category: '제목' });
+    if (activeIndex >= 0 && activeIndex < searchHistory.length) {
+      const item = searchHistory[activeIndex];
+      onKeywordChange(item.keyword);
+      onSearch({ keyword: item.keyword, category: item.category });
+    } else {
+      if (keyword.trim() === '') return;
+      onSearch({ keyword: keyword.trim(), category: '제목' });
+    }
     setIsFocused(false);
+    setActiveIndex(-1);
+  };
+
+  const handleArrowKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (!showHistory) return;
+
+    if (e.key === 'ArrowDown') {
+      setActiveIndex(prev => (prev < searchHistory.length - 1 ? prev + 1 : 0));
+    } else if (e.key === 'ArrowUp') {
+      setActiveIndex(prev => (prev > 0 ? prev - 1 : searchHistory.length - 1));
+    }
   };
 
   const handleBlur = (e: React.FocusEvent) => {
     if (containerRef.current && !containerRef.current.contains(e.relatedTarget)) {
       setIsFocused(false);
+      setActiveIndex(-1);
     }
   };
 
@@ -51,8 +70,12 @@ export default function SearchBar({
     >
       <SearchInput
         keyword={keyword}
-        onChange={onKeywordChange}
+        onChange={(value) => {
+          onKeywordChange(value);
+          setActiveIndex(-1);
+        }}
         onSubmit={handleSubmit}
+        onKeyDown={handleArrowKey}
         size={size}
         className={classNames?.input}
       />
@@ -69,7 +92,9 @@ export default function SearchBar({
               onKeywordChange(item.keyword);
               onSearch({ keyword: item.keyword, category: item.category });
               setIsFocused(false);
+              setActiveIndex(-1);
             }}
+            activeIndex={activeIndex}
             size={size}
             className={classNames?.history}
           />

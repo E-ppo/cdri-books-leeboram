@@ -19,6 +19,7 @@ export default function SearchInput({
   keyword,
   onChange,
   onSubmit,
+  onKeyDown,
   size = 'md',
   className,
 }: SearchInputProps) {
@@ -26,7 +27,15 @@ export default function SearchInput({
   const [isComposing, setIsComposing] = useState(false);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && !isComposing) {
+    if (isComposing) return;
+
+    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      onKeyDown?.(e);
+      return;
+    }
+
+    if (e.key === 'Enter') {
       e.preventDefault();
       onSubmit();
       inputRef.current?.blur();

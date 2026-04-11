@@ -39,6 +39,7 @@ export interface SearchInputProps {
   keyword: string;
   onChange: (keyword: string) => void;
   onSubmit: () => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   size?: SearchBarSize;
   className?: string;
 }
@@ -47,6 +48,7 @@ export interface SearchHistoryProps {
   history: SearchHistoryItem[];
   onDelete: (id: string) => void;
   onSelect: (item: SearchHistoryItem) => void;
+  activeIndex?: number;
   size?: SearchBarSize;
   className?: string;
 }
