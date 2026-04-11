@@ -62,7 +62,7 @@ export default function DetailSearchPopup({
   };
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative mt-[7.82px]">
       <Button onClick={() => setIsOpen(prev => !prev)} size="sm" variant="outline">
         상세 검색
       </Button>

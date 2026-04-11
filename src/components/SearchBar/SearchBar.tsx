@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import { cn } from '@/utils/cn';
 import SearchInput from './SearchInput';
 import SearchHistory from './SearchHistory';
@@ -18,17 +19,31 @@ export default function SearchBar({
   variant = 'filled',
   classNames,
 }: SearchBarProps) {
+  const [isFocused, setIsFocused] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const showHistory = isFocused && searchHistory.length > 0;
+
   const handleSubmit = () => {
     if (keyword.trim() === '') return;
     onSearch({ keyword: keyword.trim(), category: '제목' });
   };
 
+  const handleBlur = (e: React.FocusEvent) => {
+    if (containerRef.current && !containerRef.current.contains(e.relatedTarget)) {
+      setIsFocused(false);
+    }
+  };
+
   return (
     <div
+      ref={containerRef}
+      onFocus={() => setIsFocused(true)}
+      onBlur={handleBlur}
       className={cn(
         'flex-1',
         'p-2.5',
-        searchHistory.length > 0 ? 'rounded-3xl' : 'rounded-full',
+        showHistory ? 'rounded-3xl' : 'rounded-full',
         VARIANT_STYLES[variant],
         classNames?.root
       )}
@@ -40,7 +55,7 @@ export default function SearchBar({
         size={size}
         className={classNames?.input}
       />
-      {searchHistory.length > 0 && (
+      {showHistory && (
         <SearchHistory
           history={searchHistory}
           onDelete={onDeleteHistory}
