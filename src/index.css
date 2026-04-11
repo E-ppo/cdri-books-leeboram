@@ -18,41 +18,39 @@
   --color-subtitle: #8d94a0;
 }
 
-@layer components {
-  /* Title */
-  .title1 {
-    @apply text-xl leading-5 font-bold tracking-normal lg:text-2xl lg:leading-6;
-  }
+/* Title */
+@utility title1 {
+  @apply text-xl leading-5 font-bold tracking-normal lg:text-2xl lg:leading-6;
+}
 
-  .title2 {
-    @apply text-[22px] leading-6 font-bold tracking-normal;
-  }
+@utility title2 {
+  @apply text-[22px] leading-6 font-bold tracking-normal;
+}
 
-  .title3 {
-    @apply text-lg leading-4.5 font-bold tracking-normal;
-  }
+@utility title3 {
+  @apply text-lg leading-4.5 font-bold tracking-normal;
+}
 
-  /* Body */
-  .body1 {
-    @apply text-base leading-4 font-medium tracking-normal lg:text-xl lg:leading-5;
-  }
+/* Body */
+@utility body1 {
+  @apply text-base leading-4 font-medium tracking-normal lg:text-xl lg:leading-5;
+}
 
-  .body2 {
-    @apply text-sm leading-3.5 font-medium tracking-normal;
-  }
+@utility body2 {
+  @apply text-sm leading-3.5 font-medium tracking-normal;
+}
 
-  .body2-bold {
-    @apply text-sm leading-3.5 font-bold tracking-normal;
-  }
+@utility body2-bold {
+  @apply text-sm leading-3.5 font-bold tracking-normal;
+}
 
-  /* Caption & Small */
-  .caption {
-    @apply text-base leading-4 font-medium tracking-normal;
-  }
+/* Caption & Small */
+@utility caption {
+  @apply text-base leading-4 font-medium tracking-normal;
+}
 
-  .small {
-    @apply text-[10px] leading-2.5 font-medium tracking-normal;
-  }
+@utility small {
+  @apply text-[10px] leading-2.5 font-medium tracking-normal;
 }
 
 body {

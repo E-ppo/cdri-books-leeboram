@@ -26,7 +26,7 @@ export default function SearchPage() {
     <main>
       <SearchHeader onSearch={handleSearch} />
       {searchQuery && (
-        <section className="mt-6 flex-col gap-9">
+        <section className="mt-6 flex flex-col gap-5 xl:gap-9">
           <ResultCount title="도서 검색 결과" count={totalCount} />
           <BookList books={books} />
         </section>

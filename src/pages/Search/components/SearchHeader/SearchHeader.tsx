@@ -28,8 +28,8 @@ const SearchHeader = ({ onSearch }: SearchHeaderProps) => {
   };
 
   return (
-    <section className="flex flex-col max-w-142 gap-2 sm:gap-4 mt-10 sm:mt-20 ">
-      <h2 className="body1-bold sm:title2 text-black h-7 sm:h-9 leading-none">도서 검색</h2>
+    <section className="flex flex-col max-w-142 gap-4 mt-10 lg:mt-20 ">
+      <h2 className="body1-bold sm:title2 font-bold text-black h-7 sm:h-9">도서 검색</h2>
       <div className="relative flex items-start gap-2 sm:gap-3">
         <SearchBar
           keyword={keyword}
