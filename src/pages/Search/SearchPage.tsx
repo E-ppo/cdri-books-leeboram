@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import SearchHeader from './components/SearchHeader/SearchHeader';
+import BookList from './components/BookList/BookList';
+import ResultCount from '@/components/ResultCount/ResultCount';
 import { useBookSearch } from '@/hooks/useBookSearch/useBookSearch';
 import type { BookSearchTarget } from '@/types/books';
 
@@ -17,11 +19,18 @@ export default function SearchPage() {
     setSearchTarget(target);
   };
 
-  console.log(data);
+  const books = data?.pages.flatMap(page => page.documents) ?? [];
+  const totalCount = data?.pages[0]?.meta.total_count ?? 0;
 
   return (
     <main>
       <SearchHeader onSearch={handleSearch} />
+      {searchQuery && (
+        <section className="mt-6 flex-col gap-9">
+          <ResultCount title="도서 검색 결과" count={totalCount} />
+          <BookList books={books} />
+        </section>
+      )}
     </main>
   );
 }

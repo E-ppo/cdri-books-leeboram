@@ -9,7 +9,7 @@ const NAV_ITEMS = [
 
 function Layout() {
   return (
-    <div className="px-[clamp(1rem,8.33vw,10rem)]">
+    <div className="px-[clamp(1rem,6.4vw,10rem)]">
       <Header title="CERTICOS BOOKS" navItems={NAV_ITEMS} />
       <main className="mx-auto max-w-240">
         <Outlet />

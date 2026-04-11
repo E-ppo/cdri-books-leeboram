@@ -7,9 +7,9 @@ import { useState } from 'react';
 import type { BookSearchTarget } from '@/types/books';
 
 const CATEGORY_TO_TARGET: Record<string, BookSearchTarget> = {
-  '제목': 'title',
-  '저자명': 'person',
-  '출판사': 'publisher',
+  제목: 'title',
+  저자명: 'person',
+  출판사: 'publisher',
 };
 
 interface SearchHeaderProps {
@@ -28,7 +28,7 @@ const SearchHeader = ({ onSearch }: SearchHeaderProps) => {
   };
 
   return (
-    <section className="flex flex-col max-w-142 gap-2 sm:gap-4 mt-10 sm:mt-20 px-4 sm:px-0">
+    <section className="flex flex-col max-w-142 gap-2 sm:gap-4 mt-10 sm:mt-20 ">
       <h2 className="body1-bold sm:title2 text-black h-7 sm:h-9 leading-none">도서 검색</h2>
       <div className="relative flex items-start gap-2 sm:gap-3">
         <SearchBar
