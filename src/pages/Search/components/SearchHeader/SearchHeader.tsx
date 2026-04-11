@@ -4,8 +4,19 @@ import { SEARCH_CATEGORIES, type SearchParams } from '@/components/SearchBar/Sea
 import { useSearchHistoryStore } from '@/stores/searchHistoryStore';
 import { useMediaQuery } from '@/hooks/useMediaQuery/useMediaQuery';
 import { useState } from 'react';
+import type { BookSearchTarget } from '@/types/books';
 
-const SearchHeader = () => {
+const CATEGORY_TO_TARGET: Record<string, BookSearchTarget> = {
+  '제목': 'title',
+  '저자명': 'person',
+  '출판사': 'publisher',
+};
+
+interface SearchHeaderProps {
+  onSearch: (query: string, target: BookSearchTarget) => void;
+}
+
+const SearchHeader = ({ onSearch }: SearchHeaderProps) => {
   const [keyword, setKeyword] = useState('');
   const isSmUp = useMediaQuery('(min-width: 640px)');
   const { history, addHistory, deleteHistory } = useSearchHistoryStore();
@@ -13,12 +24,7 @@ const SearchHeader = () => {
   const handleSearch = (params: SearchParams) => {
     setKeyword(params.keyword);
     addHistory({ keyword: params.keyword, category: params.category });
-    // TODO: API 호출
-  };
-
-  const handleDetailSearch = (params: SearchParams) => {
-    setKeyword(params.keyword);
-    handleSearch(params);
+    onSearch(params.keyword, CATEGORY_TO_TARGET[params.category] ?? 'title');
   };
 
   return (
@@ -34,7 +40,7 @@ const SearchHeader = () => {
         />
         <DetailSearchPopup
           categories={SEARCH_CATEGORIES}
-          onSearch={handleDetailSearch}
+          onSearch={handleSearch}
           placement={isSmUp ? 'bottom' : 'bottom-right'}
         />
       </div>
