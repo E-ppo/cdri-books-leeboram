@@ -10,11 +10,17 @@ export default function BookListRow({ book }: BookItemProps) {
   return (
     <article className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-4 md:pl-12 md:pr-4 py-4">
       <div className="flex items-center gap-4 md:gap-12 min-w-0 flex-1">
-        <img
-          src={book.thumbnail}
-          alt={book.title}
-          className="w-10 h-14 xl:w-12 xl:h-17 object-cover shrink-0"
-        />
+        {book.thumbnail ? (
+          <img
+            src={book.thumbnail}
+            alt={book.title}
+            className="w-10 h-14 xl:w-12 xl:h-17 object-cover shrink-0"
+          />
+        ) : (
+          <div className="w-10 h-14 xl:w-12 xl:h-17 shrink-0 bg-gray rounded flex items-center justify-center text-subtitle text-xs">
+            No Image
+          </div>
+        )}
         <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 min-w-0 flex-1">
           <h3 className="body2-bold xl:title3 text-primary truncate min-w-0">{book.title}</h3>
           <span className="text-xs xl:body2 text-secondary shrink-0">
@@ -33,7 +39,7 @@ export default function BookListRow({ book }: BookItemProps) {
           >
             구매하기
           </Button>
-          <Accordion.Trigger className="flex items-center gap-1 body2 text-subtitle shrink-0">
+          <Accordion.Trigger as="div" className="flex items-center gap-1 body2 text-subtitle shrink-0">
             <Button
               variant="secondary"
               size="sm"

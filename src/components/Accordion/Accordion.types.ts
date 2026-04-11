@@ -24,6 +24,7 @@ export interface AccordionItemProps {
 export interface AccordionTriggerProps {
   children: React.ReactNode;
   className?: string;
+  as?: 'button' | 'div';
 }
 
 export interface AccordionContentProps {

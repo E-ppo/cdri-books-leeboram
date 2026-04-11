@@ -58,19 +58,22 @@ function Item({ value, children, className }: AccordionItemProps) {
   );
 }
 
-function Trigger({ children, className }: AccordionTriggerProps) {
+function Trigger({ children, className, as = 'button' }: AccordionTriggerProps) {
   const { toggle } = useAccordionContext();
   const { value, isOpen } = useAccordionItemContext();
+  const Component = as;
 
   return (
-    <button
-      type="button"
+    <Component
+      type={as === 'button' ? 'button' : undefined}
+      role={as === 'div' ? 'button' : undefined}
+      tabIndex={as === 'div' ? 0 : undefined}
       onClick={() => toggle(value)}
       aria-expanded={isOpen}
       className={cn('cursor-pointer', className)}
     >
       {children}
-    </button>
+    </Component>
   );
 }
 

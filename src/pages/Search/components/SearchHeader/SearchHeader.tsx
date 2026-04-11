@@ -12,6 +12,8 @@ const CATEGORY_TO_TARGET: Record<string, BookSearchTarget> = {
   출판사: 'publisher',
 };
 
+export const DEFAULT_TARGET: BookSearchTarget = 'title';
+
 interface SearchHeaderProps {
   onSearch: (query: string, target: BookSearchTarget) => void;
 }
@@ -24,7 +26,7 @@ const SearchHeader = ({ onSearch }: SearchHeaderProps) => {
   const handleSearch = (params: SearchParams) => {
     setKeyword(params.keyword);
     addHistory({ keyword: params.keyword, category: params.category });
-    onSearch(params.keyword, CATEGORY_TO_TARGET[params.category] ?? 'title');
+    onSearch(params.keyword, CATEGORY_TO_TARGET[params.category] ?? DEFAULT_TARGET);
   };
 
   return (

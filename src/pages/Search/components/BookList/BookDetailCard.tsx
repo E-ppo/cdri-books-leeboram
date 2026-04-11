@@ -10,7 +10,7 @@ export default function BookDetailCard({ book }: BookItemProps) {
   return (
     <div className="relative flex flex-col md:flex-row px-4 pt-4 pb-6 gap-4 md:gap-0 lg:pl-13.5 lg:pr-4 lg:pt-6 lg:pb-10">
       {/* 상세보기 */}
-      <Accordion.Trigger className="self-end md:absolute md:top-4 md:right-4 lg:top-6">
+      <Accordion.Trigger as="div" className="self-end md:absolute md:top-4 md:right-4 lg:top-6">
         <Button
           variant="secondary"
           size="sm"
@@ -23,11 +23,17 @@ export default function BookDetailCard({ book }: BookItemProps) {
 
       {/* 1. 이미지 + 책 정보 */}
       <div className="flex md:flex-5 lg:flex-none">
-        <img
-          src={book.thumbnail}
-          alt={book.title}
-          className="w-24 h-32 md:w-36 md:h-48 lg:w-52.5 lg:h-70 object-cover shrink-0 rounded mr-4 lg:mr-8"
-        />
+        {book.thumbnail ? (
+          <img
+            src={book.thumbnail}
+            alt={book.title}
+            className="w-24 h-32 md:w-36 md:h-48 lg:w-52.5 lg:h-70 object-cover shrink-0 rounded mr-4 lg:mr-8"
+          />
+        ) : (
+          <div className="w-24 h-32 md:w-36 md:h-48 lg:w-52.5 lg:h-70 shrink-0 rounded mr-4 lg:mr-8 bg-gray flex items-center justify-center text-subtitle text-sm">
+            No Image
+          </div>
+        )}
         <div className="flex flex-col flex-1 lg:flex-none lg:w-90 min-w-0 gap-4 md:mr-6 lg:mr-12 pt-5">
           <div className="flex flex-col gap-4 md:flex-row md:items-center">
             <h3 className="title3 text-primary break-keep-all">{book.title}</h3>
