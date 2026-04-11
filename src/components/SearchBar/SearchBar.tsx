@@ -65,6 +65,11 @@ export default function SearchBar({
           <SearchHistory
             history={searchHistory}
             onDelete={onDeleteHistory}
+            onSelect={item => {
+              onKeywordChange(item.keyword);
+              onSearch({ keyword: item.keyword, category: item.category });
+              setIsFocused(false);
+            }}
             size={size}
             className={classNames?.history}
           />

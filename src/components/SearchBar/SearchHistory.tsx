@@ -23,6 +23,7 @@ const PADDING_STYLES = {
 export default function SearchHistory({
   history,
   onDelete,
+  onSelect,
   size = 'md',
   className,
 }: SearchHistoryProps) {
@@ -36,7 +37,13 @@ export default function SearchHistory({
             SIZE_STYLES[size]
           )}
         >
-          <span>{item.keyword}</span>
+          <button
+            type="button"
+            onClick={() => onSelect(item)}
+            className="cursor-pointer text-left flex-1"
+          >
+            {item.keyword}
+          </button>
           <button type="button" onClick={() => onDelete(item.id)} className="cursor-pointer">
             <Icon name="Close" size={ICON_SIZE[size]} className="text-black" />
           </button>

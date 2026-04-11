@@ -1,9 +1,12 @@
 import Accordion from '@/components/Accordion/Accordion';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
+import { useWishlistStore } from '@/stores/wishlistStore';
 import type { BookItemProps } from './BookList.types';
 
 export default function BookDetailCard({ book }: BookItemProps) {
+  const { toggleWishlist, isWishlisted } = useWishlistStore();
+  const wishlisted = isWishlisted(book.isbn);
   const hasDiscount = book.sale_price > 0 && book.sale_price < book.price;
   const bookContents = book.contents || '준비중입니다';
 
@@ -23,17 +26,26 @@ export default function BookDetailCard({ book }: BookItemProps) {
 
       {/* 1. 이미지 + 책 정보 */}
       <div className="flex md:flex-5 lg:flex-none">
-        {book.thumbnail ? (
-          <img
-            src={book.thumbnail}
-            alt={book.title}
-            className="w-24 h-32 md:w-36 md:h-48 lg:w-52.5 lg:h-70 object-cover shrink-0 rounded mr-4 lg:mr-8"
-          />
-        ) : (
-          <div className="w-24 h-32 md:w-36 md:h-48 lg:w-52.5 lg:h-70 shrink-0 rounded mr-4 lg:mr-8 bg-gray flex items-center justify-center text-subtitle text-sm">
-            No Image
-          </div>
-        )}
+        <div className="relative shrink-0 mr-4 lg:mr-8">
+          {book.thumbnail ? (
+            <img
+              src={book.thumbnail}
+              alt={book.title}
+              className="w-24 h-32 md:w-36 md:h-48 lg:w-52.5 lg:h-70 object-cover rounded"
+            />
+          ) : (
+            <div className="w-24 h-32 md:w-36 md:h-48 lg:w-52.5 lg:h-70 rounded bg-gray flex items-center justify-center text-subtitle text-sm">
+              No Image
+            </div>
+          )}
+          <button
+            type="button"
+            onClick={() => toggleWishlist(book)}
+            className="absolute top-2 right-2 cursor-pointer"
+          >
+            <Icon name={wishlisted ? 'LikeFill' : 'LikeLine'} size={24} />
+          </button>
+        </div>
         <div className="flex flex-col flex-1 lg:flex-none lg:w-90 min-w-0 gap-4 md:mr-6 lg:mr-12 pt-5">
           <div className="flex flex-col gap-4 md:flex-row md:items-center">
             <h3 className="title3 text-primary break-keep-all">{book.title}</h3>

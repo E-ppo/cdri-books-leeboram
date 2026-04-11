@@ -46,6 +46,7 @@ export interface SearchInputProps {
 export interface SearchHistoryProps {
   history: SearchHistoryItem[];
   onDelete: (id: string) => void;
+  onSelect: (item: SearchHistoryItem) => void;
   size?: SearchBarSize;
   className?: string;
 }
