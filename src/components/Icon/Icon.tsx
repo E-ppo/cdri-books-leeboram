@@ -1,6 +1,6 @@
-import type { JSX } from 'react'
-import * as Icons from '@/assets/svgs'
-import type { IconProps } from './Icon.types'
+import type { JSX } from 'react';
+import * as Icons from '@/assets/svgs';
+import type { IconProps } from './Icon.types';
 
 const Icon = ({
   name,
@@ -10,13 +10,13 @@ const Icon = ({
   onClick,
   ...props
 }: IconProps): JSX.Element => {
-  const IconComponent = Icons[name as keyof typeof Icons]
-  const width = _width ?? size
-  const height = _height ?? size
+  const IconComponent = Icons[name as keyof typeof Icons];
+  const width = _width ?? size;
+  const height = _height ?? size;
   const sizeProps = {
     ...(width !== undefined ? { width } : {}),
     ...(height !== undefined ? { height } : {}),
-  }
+  };
 
   return (
     <span
@@ -28,7 +28,7 @@ const Icon = ({
     >
       <IconComponent {...props} {...sizeProps} />
     </span>
-  )
-}
+  );
+};
 
-export default Icon
+export default Icon;
