@@ -1,21 +1,35 @@
 import { useEffect, useRef, useState } from 'react';
 import Icon from '@/components/Icon/Icon';
-import { SEARCH_CATEGORIES } from '@/components/SearchBar/SearchBar.types';
+import Dropdown from '@/components/Dropdown/Dropdown';
 import type { SearchCategory } from '@/components/SearchBar/SearchBar.types';
-import type { DetailSearchPopupProps } from './DetailSearchPopup.types';
+import type { DetailSearchPopupPlacement, DetailSearchPopupProps } from './DetailSearchPopup.types';
+import Button from '../Button/Button';
 
-export default function DetailSearchPopup({ onSearch }: DetailSearchPopupProps) {
+const PLACEMENT_CLASSES: Record<DetailSearchPopupPlacement, string> = {
+  bottom: 'top-full left-1/2 -translate-x-1/2 mt-4',
+  'bottom-left': 'top-full left-0 mt-4',
+  'bottom-right': 'top-full right-0 mt-4',
+  top: 'bottom-full left-1/2 -translate-x-1/2 mb-4',
+  'top-left': 'bottom-full left-0 mb-4',
+  'top-right': 'bottom-full right-0 mb-4',
+  left: 'right-full top-0 mr-4',
+  right: 'left-full top-0 ml-4',
+};
+
+export default function DetailSearchPopup({
+  categories,
+  onSearch,
+  placement = 'bottom-left',
+}: DetailSearchPopupProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [category, setCategory] = useState<SearchCategory>('제목');
   const [keyword, setKeyword] = useState('');
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleClose = () => {
     setIsOpen(false);
     setKeyword('');
     setCategory('제목');
-    setIsCategoryOpen(false);
   };
 
   useEffect(() => {
@@ -49,53 +63,23 @@ export default function DetailSearchPopup({ onSearch }: DetailSearchPopupProps) 
 
   return (
     <div ref={containerRef} className="relative">
-      <button
-        type="button"
-        onClick={() => setIsOpen(prev => !prev)}
-        className="shrink-0 rounded-lg border border-gray px-3 py-2 body2 text-secondary cursor-pointer hover:bg-light-gray transition-colors"
-      >
-        상세검색
-      </button>
-
+      <Button onClick={() => setIsOpen(prev => !prev)} size="sm" variant="outline">
+        상세 검색
+      </Button>
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 z-10 w-80 rounded-lg bg-white p-5 shadow-lg">
+        <div
+          className={`absolute z-10 w-80 rounded-lg bg-white px-6 py-9 shadow-[0px_4px_14px_6px_#97979726] ${PLACEMENT_CLASSES[placement]}`}
+        >
           <button
             type="button"
             onClick={handleClose}
-            className="absolute top-3 right-3 cursor-pointer text-subtitle hover:text-primary"
+            className="absolute top-[12.17px] right-[12.17px] cursor-pointer text-subtitle hover:text-primary"
           >
             <Icon name="Close" size={18} />
           </button>
 
-          <div className="flex items-center gap-2 border-b border-gray pb-3 mb-4">
-            <div className="relative">
-              <button
-                type="button"
-                onClick={() => setIsCategoryOpen(prev => !prev)}
-                className="flex items-center gap-1 cursor-pointer body2-bold text-primary"
-              >
-                {category}
-                <Icon name="ChevronDown" size={16} />
-              </button>
-              {isCategoryOpen && (
-                <ul className="absolute top-full left-0 mt-1 w-20 rounded-md bg-white shadow-md border border-gray z-20">
-                  {SEARCH_CATEGORIES.filter(c => c !== category).map(c => (
-                    <li key={c}>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setCategory(c);
-                          setIsCategoryOpen(false);
-                        }}
-                        className="w-full px-3 py-2 text-left body2 text-secondary hover:bg-light-gray cursor-pointer"
-                      >
-                        {c}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+          <div className="flex items-center gap-2 mb-4 border-b border-gray ">
+            <Dropdown value={category} options={categories} onChange={setCategory} />
 
             <input
               type="text"
@@ -107,13 +91,9 @@ export default function DetailSearchPopup({ onSearch }: DetailSearchPopupProps) 
             />
           </div>
 
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className="w-full rounded-md bg-brand py-3 body2-bold text-white cursor-pointer hover:opacity-90 transition-opacity"
-          >
+          <Button size="lg" onClick={handleSubmit}>
             검색하기
-          </button>
+          </Button>
         </div>
       )}
     </div>

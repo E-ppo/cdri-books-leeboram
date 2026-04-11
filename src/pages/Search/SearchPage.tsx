@@ -2,6 +2,7 @@ import { useState } from 'react';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import DetailSearchPopup from '@/components/DetailSearchPopup/DetailSearchPopup';
 import { useSearchHistoryStore } from '@/stores/searchHistoryStore';
+import { SEARCH_CATEGORIES } from '@/components/SearchBar/SearchBar.types';
 import type { SearchParams } from '@/components/SearchBar/SearchBar.types';
 
 export default function SearchPage() {
@@ -30,7 +31,7 @@ export default function SearchPage() {
           searchHistory={history}
           onDeleteHistory={deleteHistory}
         />
-        <DetailSearchPopup onSearch={handleDetailSearch} />
+        <DetailSearchPopup categories={SEARCH_CATEGORIES} onSearch={handleDetailSearch} placement="bottom" />
       </div>
     </section>
   );
