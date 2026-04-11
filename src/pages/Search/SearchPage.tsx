@@ -45,6 +45,13 @@ export default function SearchPage() {
   return (
     <>
       <SearchHeader onSearch={handleSearch} />
+      {!searchQuery.trim() && (
+        <StatusMessage
+          icon={<img src={iconBook} alt="book" className="w-20 h-20" />}
+          message="관심 있는 도서를 검색해보세요"
+          className="py-40"
+        />
+      )}
       {searchQuery.trim() && (
         <section className="mt-6 flex flex-col gap-5 xl:gap-9">
           <ResultCount title="도서 검색 결과" count={totalCount} />
