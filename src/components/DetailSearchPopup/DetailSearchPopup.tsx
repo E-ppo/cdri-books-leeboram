@@ -68,7 +68,7 @@ export default function DetailSearchPopup({
       </Button>
       {isOpen && (
         <div
-          className={`absolute z-10 w-80 rounded-lg bg-white px-6 py-9 shadow-[0px_4px_14px_6px_#97979726] ${PLACEMENT_CLASSES[placement]}`}
+          className={`absolute z-10 min-w-90 rounded-lg bg-white px-6 py-9 shadow-[0px_4px_14px_6px_#97979726] ${PLACEMENT_CLASSES[placement]}`}
         >
           <button
             type="button"
@@ -78,8 +78,8 @@ export default function DetailSearchPopup({
             <Icon name="Close" size={18} />
           </button>
 
-          <div className="flex items-center gap-2 mb-4 border-b border-gray ">
-            <Dropdown value={category} options={categories} onChange={setCategory} />
+          <div className="flex items-center gap-1 mb-4  ">
+            <Dropdown value={category} options={categories} onChange={v => setCategory(v)} />
 
             <input
               type="text"
@@ -87,7 +87,7 @@ export default function DetailSearchPopup({
               onChange={e => setKeyword(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="검색어 입력"
-              className="flex-1 bg-transparent body2 text-primary outline-none placeholder:text-subtitle"
+              className="flex-1 min-w-0 bg-transparent body2 text-primary border-b border-brand px-[9.45px] py-1.5 placeholder:text-subtitle"
             />
           </div>
 

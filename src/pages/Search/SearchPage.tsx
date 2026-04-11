@@ -31,7 +31,11 @@ export default function SearchPage() {
           searchHistory={history}
           onDeleteHistory={deleteHistory}
         />
-        <DetailSearchPopup categories={SEARCH_CATEGORIES} onSearch={handleDetailSearch} placement="bottom" />
+        <DetailSearchPopup
+          categories={SEARCH_CATEGORIES}
+          onSearch={handleDetailSearch}
+          placement="bottom"
+        />
       </div>
     </section>
   );
