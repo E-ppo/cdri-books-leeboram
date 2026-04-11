@@ -16,7 +16,7 @@ const ICON_SIZE = {
 
 const PADDING_STYLES = {
   sm: 'pt-5 pb-2 gap-4 pl-7',
-  md: 'pt-[29px] pb-3.5 gap-6 pl-10',
+  md: 'pt-[19px] pb-3.5 gap-6 pl-10',
   lg: 'pt-10 pb-5 gap-6 pl-12',
 } as const;
 

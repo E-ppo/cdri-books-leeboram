@@ -27,6 +27,7 @@ export default function SearchBar({
   const handleSubmit = () => {
     if (keyword.trim() === '') return;
     onSearch({ keyword: keyword.trim(), category: '제목' });
+    setIsFocused(false);
   };
 
   const handleBlur = (e: React.FocusEvent) => {
@@ -41,9 +42,9 @@ export default function SearchBar({
       onFocus={() => setIsFocused(true)}
       onBlur={handleBlur}
       className={cn(
-        'flex-1',
+        'relative flex-1',
         'p-1.5 sm:p-2.5',
-        showHistory ? 'rounded-3xl' : 'rounded-full',
+        showHistory ? 'rounded-t-3xl' : 'rounded-full',
         VARIANT_STYLES[variant],
         classNames?.root
       )}
@@ -56,12 +57,18 @@ export default function SearchBar({
         className={classNames?.input}
       />
       {showHistory && (
-        <SearchHistory
-          history={searchHistory}
-          onDelete={onDeleteHistory}
-          size={size}
-          className={classNames?.history}
-        />
+        <div className={cn(
+          'absolute left-0 right-0 top-full -mt-px z-10',
+          'rounded-b-3xl px-1.5 pb-1.5 sm:px-2.5 sm:pb-2.5',
+          VARIANT_STYLES[variant],
+        )}>
+          <SearchHistory
+            history={searchHistory}
+            onDelete={onDeleteHistory}
+            size={size}
+            className={classNames?.history}
+          />
+        </div>
       )}
     </div>
   );

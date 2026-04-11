@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import Icon from '@/components/Icon/Icon';
 import { cn } from '@/utils/cn';
 import type { SearchInputProps } from './SearchBar.types';
@@ -21,10 +22,14 @@ export default function SearchInput({
   size = 'md',
   className,
 }: SearchInputProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [isComposing, setIsComposing] = useState(false);
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !isComposing) {
       e.preventDefault();
       onSubmit();
+      inputRef.current?.blur();
     }
   };
 
@@ -32,10 +37,13 @@ export default function SearchInput({
     <div className="flex items-center gap-2.75">
       <Icon name="Search" size={ICON_SIZE[size]} className="text-black shrink-0" />
       <input
+        ref={inputRef}
         type="text"
         value={keyword}
         onChange={e => onChange(e.target.value)}
         onKeyDown={handleKeyDown}
+        onCompositionStart={() => setIsComposing(true)}
+        onCompositionEnd={() => setIsComposing(false)}
         placeholder="검색어를 입력하세요"
         className={cn(
           'flex-1 bg-transparent text-primary outline-none',
