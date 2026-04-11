@@ -54,20 +54,16 @@ describe('useBookSearch', () => {
   });
 
   it('query가 비어있으면 API를 호출하지 않아야 한다', () => {
-    const { result } = renderHook(
-      () => useBookSearch({ query: '' }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useBookSearch({ query: '' }), { wrapper: createWrapper() });
 
     expect(result.current.isFetching).toBe(false);
     expect(mockFetchBooks).not.toHaveBeenCalled();
   });
 
   it('query가 공백만 있으면 API를 호출하지 않아야 한다', () => {
-    const { result } = renderHook(
-      () => useBookSearch({ query: '   ' }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useBookSearch({ query: '   ' }), {
+      wrapper: createWrapper(),
+    });
 
     expect(result.current.isFetching).toBe(false);
     expect(mockFetchBooks).not.toHaveBeenCalled();
@@ -76,10 +72,9 @@ describe('useBookSearch', () => {
   it('query가 있으면 첫 페이지를 요청해야 한다', async () => {
     mockFetchBooks.mockResolvedValueOnce(mockResponse(1, false));
 
-    const { result } = renderHook(
-      () => useBookSearch({ query: '노르웨이 숲' }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useBookSearch({ query: '노르웨이 숲' }), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
@@ -93,10 +88,9 @@ describe('useBookSearch', () => {
   it('다음 페이지가 있으면 hasNextPage가 true여야 한다', async () => {
     mockFetchBooks.mockResolvedValueOnce(mockResponse(1, false));
 
-    const { result } = renderHook(
-      () => useBookSearch({ query: '검색어' }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useBookSearch({ query: '검색어' }), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
@@ -106,10 +100,9 @@ describe('useBookSearch', () => {
   it('마지막 페이지이면 hasNextPage가 false여야 한다', async () => {
     mockFetchBooks.mockResolvedValueOnce(mockResponse(1, true));
 
-    const { result } = renderHook(
-      () => useBookSearch({ query: '검색어' }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useBookSearch({ query: '검색어' }), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
@@ -121,10 +114,9 @@ describe('useBookSearch', () => {
       .mockResolvedValueOnce(mockResponse(1, false))
       .mockResolvedValueOnce(mockResponse(2, true));
 
-    const { result } = renderHook(
-      () => useBookSearch({ query: '검색어' }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useBookSearch({ query: '검색어' }), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
@@ -140,10 +132,9 @@ describe('useBookSearch', () => {
   it('target 파라미터를 전달할 수 있어야 한다', async () => {
     mockFetchBooks.mockResolvedValueOnce(mockResponse(1, true));
 
-    const { result } = renderHook(
-      () => useBookSearch({ query: '하루키', target: 'person' }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useBookSearch({ query: '하루키', target: 'person' }), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
@@ -157,10 +148,9 @@ describe('useBookSearch', () => {
   it('API 에러 시 error 상태여야 한다', async () => {
     mockFetchBooks.mockRejectedValueOnce(new Error('API 오류'));
 
-    const { result } = renderHook(
-      () => useBookSearch({ query: '검색어' }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useBookSearch({ query: '검색어' }), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => expect(result.current.isError).toBe(true));
 

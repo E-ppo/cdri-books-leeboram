@@ -20,11 +20,19 @@ interface SearchHeaderProps {
 
 const SearchHeader = ({ onSearch }: SearchHeaderProps) => {
   const [keyword, setKeyword] = useState('');
+  const [detailSearchKey, setDetailSearchKey] = useState(0);
   const isSmUp = useMediaQuery('(min-width: 640px)');
   const { history, addHistory, deleteHistory } = useSearchHistoryStore();
 
-  const handleSearch = (params: SearchParams) => {
+  const handleFullSearch = (params: SearchParams) => {
     setKeyword(params.keyword);
+    setDetailSearchKey(prev => prev + 1);
+    addHistory({ keyword: params.keyword, category: params.category });
+    onSearch(params.keyword, CATEGORY_TO_TARGET[params.category] ?? DEFAULT_TARGET);
+  };
+
+  const handleDetailSearch = (params: SearchParams) => {
+    setKeyword('');
     addHistory({ keyword: params.keyword, category: params.category });
     onSearch(params.keyword, CATEGORY_TO_TARGET[params.category] ?? DEFAULT_TARGET);
   };
@@ -36,13 +44,14 @@ const SearchHeader = ({ onSearch }: SearchHeaderProps) => {
         <SearchBar
           keyword={keyword}
           onKeywordChange={setKeyword}
-          onSearch={handleSearch}
+          onSearch={handleFullSearch}
           searchHistory={history}
           onDeleteHistory={deleteHistory}
         />
         <DetailSearchPopup
+          key={detailSearchKey}
           categories={SEARCH_CATEGORIES}
-          onSearch={handleSearch}
+          onSearch={handleDetailSearch}
           placement={isSmUp ? 'bottom' : 'bottom-right'}
         />
       </div>

@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import SearchHeader, { DEFAULT_TARGET } from './components/SearchHeader/SearchHeader';
 import BookList from './components/BookList/BookList';
 import ResultCount from '@/components/ResultCount/ResultCount';
+import StatusMessage from '@/components/StatusMessage/StatusMessage';
+import iconBook from '@/assets/imgs/icon_book.png';
 import { useBookSearch } from '@/hooks/useBookSearch/useBookSearch';
 import type { BookSearchTarget } from '@/types/books';
 
@@ -30,7 +32,7 @@ export default function SearchPage() {
           fetchNextPage();
         }
       },
-      { threshold: 0 },
+      { threshold: 0 }
     );
 
     observer.observe(el);
@@ -46,8 +48,18 @@ export default function SearchPage() {
       {searchQuery.trim() && (
         <section className="mt-6 flex flex-col gap-5 xl:gap-9">
           <ResultCount title="도서 검색 결과" count={totalCount} />
-          <BookList books={books} />
-          <div ref={observerRef} />
+          {books.length > 0 ? (
+            <>
+              <BookList books={books} />
+              <div ref={observerRef} />
+            </>
+          ) : (
+            <StatusMessage
+              icon={<img src={iconBook} alt="book" className="w-20 h-20" />}
+              message="검색결과가 없습니다."
+              className="py-40"
+            />
+          )}
         </section>
       )}
     </>
