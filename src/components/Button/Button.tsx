@@ -48,7 +48,7 @@ export default function Button({
   return (
     <button
       className={cn(
-        'flex items-center justify-center gap-1.25 cursor-pointer transition-colors',
+        'flex items-center justify-center gap-1.25 whitespace-nowrap cursor-pointer transition-colors',
         'disabled:opacity-50 disabled:cursor-not-allowed',
         variantStyles[variant],
         sizeStyle,

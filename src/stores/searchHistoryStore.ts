@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { SearchHistoryItem } from '@/components/SearchBar/SearchBar.types';
 
-const MAX_HISTORY_COUNT = 10;
+const MAX_HISTORY_COUNT = 8;
 
 interface SearchHistoryStore {
   history: SearchHistoryItem[];

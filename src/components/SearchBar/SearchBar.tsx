@@ -42,7 +42,7 @@ export default function SearchBar({
       onBlur={handleBlur}
       className={cn(
         'flex-1',
-        'p-2.5',
+        'p-1.5 sm:p-2.5',
         showHistory ? 'rounded-3xl' : 'rounded-full',
         VARIANT_STYLES[variant],
         classNames?.root

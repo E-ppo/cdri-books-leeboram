@@ -62,13 +62,16 @@ export default function DetailSearchPopup({
   };
 
   return (
-    <div ref={containerRef} className="relative mt-[7.82px]">
-      <Button onClick={() => setIsOpen(prev => !prev)} size="sm" variant="outline">
+    <div ref={containerRef} className="relative mt-1.5 sm:mt-[7.82px]">
+      <button type="button" onClick={() => setIsOpen(prev => !prev)} className="sm:hidden cursor-pointer text-subtitle">
+        <Icon name="Filter" size={22} />
+      </button>
+      <Button onClick={() => setIsOpen(prev => !prev)} size="sm" variant="outline" className="hidden sm:flex">
         상세 검색
       </Button>
       {isOpen && (
         <div
-          className={`absolute z-10 min-w-90 rounded-lg bg-white px-6 py-9 shadow-[0px_4px_14px_6px_#97979726] ${PLACEMENT_CLASSES[placement]}`}
+          className={`absolute z-10 min-w-70 sm:min-w-90 rounded-lg bg-white px-4 sm:px-6 py-6 sm:py-9 shadow-[0px_4px_14px_6px_#97979726] ${PLACEMENT_CLASSES[placement]}`}
         >
           <button
             type="button"
