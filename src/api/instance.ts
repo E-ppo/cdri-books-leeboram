@@ -1,10 +1,10 @@
-import axios from 'axios'
+import axios from 'axios';
 
 const kakaoApi = axios.create({
-  baseURL: 'https://dapi.kakao.com',
+  baseURL: import.meta.env.VITE_KAKAO_API_BASE_URL,
   headers: {
     Authorization: `KakaoAK ${import.meta.env.VITE_KAKAO_API_KEY}`,
   },
-})
+});
 
-export default kakaoApi
+export default kakaoApi;
