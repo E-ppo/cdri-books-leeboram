@@ -41,7 +41,7 @@ function Accordion({ children, multiple = false, defaultValue = [], className }:
 
   return (
     <AccordionContext.Provider value={{ openValues, toggle }}>
-      <div className={className}>{children}</div>
+      <div className={cn('w-full', className)}>{children}</div>
     </AccordionContext.Provider>
   );
 }
