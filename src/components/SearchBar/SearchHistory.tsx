@@ -33,12 +33,22 @@ export default function SearchHistory({
   activeIndex = -1,
   size = 'md',
   className,
+  listboxId,
+  getOptionId,
 }: SearchHistoryProps) {
   return (
-    <ul className={cn('flex flex-col', LIST_STYLES[size], className)}>
+    <ul
+      id={listboxId}
+      role="listbox"
+      aria-label="최근 검색어"
+      className={cn('flex flex-col', LIST_STYLES[size], className)}
+    >
       {history.map((item, index) => (
         <li
           key={item.id}
+          id={getOptionId?.(index)}
+          role="option"
+          aria-selected={index === activeIndex}
           className={cn(
             'flex items-center justify-between pr-3.75 rounded-lg transition-colors',
             ITEM_PL_STYLES[size],
@@ -53,8 +63,13 @@ export default function SearchHistory({
           >
             {item.keyword}
           </button>
-          <button type="button" onClick={() => onDelete(item.id)} className="cursor-pointer px-2 py-1">
-            <Icon name="Close" size={ICON_SIZE[size]} className="text-black" />
+          <button
+            type="button"
+            onClick={() => onDelete(item.id)}
+            aria-label={`${item.keyword} 검색 기록 삭제`}
+            className="cursor-pointer px-2 py-1"
+          >
+            <Icon name="Close" size={ICON_SIZE[size]} className="text-black" aria-hidden="true" />
           </button>
         </li>
       ))}

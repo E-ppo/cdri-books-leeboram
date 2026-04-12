@@ -22,6 +22,10 @@ export default function SearchInput({
   onKeyDown,
   size = 'md',
   className,
+  ariaLabel = '도서 검색',
+  listboxId,
+  isExpanded = false,
+  activeOptionId,
 }: SearchInputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isComposing, setIsComposing] = useState(false);
@@ -44,7 +48,7 @@ export default function SearchInput({
 
   return (
     <div className="flex items-center gap-2.75">
-      <Icon name="Search" size={ICON_SIZE[size]} className="text-black shrink-0" />
+      <Icon name="Search" size={ICON_SIZE[size]} className="text-black shrink-0" aria-hidden="true" />
       <input
         ref={inputRef}
         type="text"
@@ -54,6 +58,12 @@ export default function SearchInput({
         onCompositionStart={() => setIsComposing(true)}
         onCompositionEnd={() => setIsComposing(false)}
         placeholder="검색어를 입력하세요"
+        aria-label={ariaLabel}
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded={isExpanded}
+        aria-controls={listboxId}
+        aria-activedescendant={activeOptionId}
         className={cn(
           'flex-1 bg-transparent text-primary outline-none',
           SIZE_STYLES[size],
