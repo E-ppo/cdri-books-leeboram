@@ -20,6 +20,19 @@ export default defineConfig({
     }
   },
   test: {
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html', 'lcov'],
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: [
+        'src/**/*.stories.tsx',
+        'src/**/*.types.ts',
+        'src/**/__fixtures__/**',
+        'src/test/**',
+        'src/main.tsx',
+        'src/vite-env.d.ts',
+      ],
+    },
     projects: [
       {
         extends: true,
