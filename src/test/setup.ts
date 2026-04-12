@@ -11,16 +11,45 @@ afterEach(() => {
 });
 afterAll(() => server.close());
 
+type IOCallback = (entries: IntersectionObserverEntry[]) => void;
+const observerRegistry = new Map<Element, IOCallback>();
+
 class MockIntersectionObserver {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
+  private callback: IOCallback;
+  constructor(callback: IOCallback) {
+    this.callback = callback;
+  }
+  observe(el: Element) {
+    observerRegistry.set(el, this.callback);
+  }
+  unobserve(el: Element) {
+    observerRegistry.delete(el);
+  }
+  disconnect() {
+    observerRegistry.clear();
+  }
   takeRecords() {
-    return [];
+    return [] as IntersectionObserverEntry[];
   }
 }
 
 vi.stubGlobal('IntersectionObserver', MockIntersectionObserver);
+
+export function triggerIntersection(el: Element, isIntersecting = true) {
+  const cb = observerRegistry.get(el);
+  if (!cb) return;
+  cb([{ target: el, isIntersecting } as unknown as IntersectionObserverEntry]);
+}
+
+export function triggerAllIntersections(isIntersecting = true) {
+  observerRegistry.forEach((cb, el) => {
+    cb([{ target: el, isIntersecting } as unknown as IntersectionObserverEntry]);
+  });
+}
+
+export function getObserverCount() {
+  return observerRegistry.size;
+}
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
