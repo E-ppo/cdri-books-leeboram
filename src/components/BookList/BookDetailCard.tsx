@@ -41,6 +41,8 @@ export default function BookDetailCard({ book }: BookItemProps) {
           <button
             type="button"
             onClick={() => toggleWishlist(book)}
+            aria-label={wishlisted ? '찜 해제' : '찜하기'}
+            aria-pressed={wishlisted}
             className="absolute top-2 right-2 cursor-pointer"
           >
             <Icon name={wishlisted ? 'LikeFill' : 'LikeLine'} size={24} />
