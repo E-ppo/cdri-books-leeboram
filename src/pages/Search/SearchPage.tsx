@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import SearchHeader, { DEFAULT_TARGET } from './components/SearchHeader/SearchHeader';
-import BookList from './components/BookList/BookList';
+import BookList from '@/components/BookList/BookList';
 import ResultCount from '@/components/ResultCount/ResultCount';
 import StatusMessage from '@/components/StatusMessage/StatusMessage';
 import iconBook from '@/assets/imgs/icon_book.png';

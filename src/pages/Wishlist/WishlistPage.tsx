@@ -1,6 +1,6 @@
 import ResultCount from '@/components/ResultCount/ResultCount';
 import StatusMessage from '@/components/StatusMessage/StatusMessage';
-import BookList from '@/pages/Search/components/BookList/BookList';
+import BookList from '@/components/BookList/BookList';
 import { useWishlistStore } from '@/stores/wishlistStore';
 import iconBook from '@/assets/imgs/icon_book.png';
 
