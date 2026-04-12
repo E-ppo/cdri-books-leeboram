@@ -74,7 +74,6 @@ src/
 │   ├── Accordion/          # Compound Component 패턴
 │   ├── BookList/           # 도서 목록 (composite)
 │   │   └── __fixtures__/   # 스토리북·테스트용 실제 응답 fixture
-│   ├── BookList/
 │   ├── Button/
 │   ├── DetailSearchPopup/  # Dialog 패턴 모달
 │   ├── Dropdown/           # Combobox 패턴
