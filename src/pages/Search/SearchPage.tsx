@@ -8,7 +8,9 @@ import { useBookSearch } from '@/hooks/useBookSearch/useBookSearch';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll/useInfiniteScroll';
 import type { BookSearchTarget } from '@/types/books';
 
-const bookIcon = <img src={iconBook} alt="book" className="w-20 h-20" />;
+const bookIcon = (
+  <img src={iconBook} alt="book" className="w-20 h-20" fetchPriority="high" />
+);
 
 export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState('');
