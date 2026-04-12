@@ -2,7 +2,7 @@ import { http, HttpResponse } from 'msw';
 import { sampleBooks } from '@/components/BookList/__fixtures__/books';
 import type { BookSearchResponse } from '@/types/books';
 
-const KAKAO_SEARCH_URL = 'https://dapi.kakao.com/v3/search/book';
+const KAKAO_SEARCH_URL = `${import.meta.env.VITE_KAKAO_API_BASE_URL}/v3/search/book`;
 
 export const handlers = [
   http.get(KAKAO_SEARCH_URL, ({ request }) => {
