@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import { cn } from '@/utils/cn';
 import SearchInput from './SearchInput';
 import SearchHistory from './SearchHistory';
@@ -22,8 +22,12 @@ export default function SearchBar({
   const [isFocused, setIsFocused] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const containerRef = useRef<HTMLDivElement>(null);
+  const baseId = useId();
+  const listboxId = `${baseId}-listbox`;
+  const getOptionId = (index: number) => `${baseId}-option-${index}`;
 
   const showHistory = isFocused && searchHistory.length > 0;
+  const activeOptionId = activeIndex >= 0 ? getOptionId(activeIndex) : undefined;
 
   const handleSubmit = () => {
     if (activeIndex >= 0 && activeIndex < searchHistory.length) {
@@ -58,6 +62,7 @@ export default function SearchBar({
   return (
     <div
       ref={containerRef}
+      role="search"
       onFocus={() => setIsFocused(true)}
       onBlur={handleBlur}
       className={cn(
@@ -78,6 +83,9 @@ export default function SearchBar({
         onKeyDown={handleArrowKey}
         size={size}
         className={classNames?.input}
+        listboxId={listboxId}
+        isExpanded={showHistory}
+        activeOptionId={activeOptionId}
       />
       {showHistory && (
         <div className={cn(
@@ -97,6 +105,8 @@ export default function SearchBar({
             activeIndex={activeIndex}
             size={size}
             className={classNames?.history}
+            listboxId={listboxId}
+            getOptionId={getOptionId}
           />
         </div>
       )}

@@ -1,7 +1,7 @@
 import DetailSearchPopup from '@/components/DetailSearchPopup/DetailSearchPopup';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import { SEARCH_CATEGORIES, type SearchParams } from '@/components/SearchBar/SearchBar.types';
-import { useSearchHistoryStore } from '@/stores/searchHistoryStore';
+import { useSearchHistoryStore } from '@/stores/searchHistoryStore/searchHistoryStore';
 import { useMediaQuery } from '@/hooks/useMediaQuery/useMediaQuery';
 import { useState } from 'react';
 import type { BookSearchTarget } from '@/types/books';
@@ -24,15 +24,9 @@ const SearchHeader = ({ onSearch }: SearchHeaderProps) => {
   const isSmUp = useMediaQuery('(min-width: 640px)');
   const { history, addHistory, deleteHistory } = useSearchHistoryStore();
 
-  const handleFullSearch = (params: SearchParams) => {
+  const handleSearch = (params: SearchParams) => {
     setKeyword(params.keyword);
     setDetailSearchKey(prev => prev + 1);
-    addHistory({ keyword: params.keyword, category: params.category });
-    onSearch(params.keyword, CATEGORY_TO_TARGET[params.category] ?? DEFAULT_TARGET);
-  };
-
-  const handleDetailSearch = (params: SearchParams) => {
-    setKeyword('');
     addHistory({ keyword: params.keyword, category: params.category });
     onSearch(params.keyword, CATEGORY_TO_TARGET[params.category] ?? DEFAULT_TARGET);
   };
@@ -44,14 +38,14 @@ const SearchHeader = ({ onSearch }: SearchHeaderProps) => {
         <SearchBar
           keyword={keyword}
           onKeywordChange={setKeyword}
-          onSearch={handleFullSearch}
+          onSearch={handleSearch}
           searchHistory={history}
           onDeleteHistory={deleteHistory}
         />
         <DetailSearchPopup
           key={detailSearchKey}
           categories={SEARCH_CATEGORIES}
-          onSearch={handleDetailSearch}
+          onSearch={handleSearch}
           placement={isSmUp ? 'bottom' : 'bottom-right'}
         />
       </div>

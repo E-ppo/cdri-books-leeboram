@@ -42,6 +42,10 @@ export interface SearchInputProps {
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   size?: SearchBarSize;
   className?: string;
+  ariaLabel?: string;
+  listboxId?: string;
+  isExpanded?: boolean;
+  activeOptionId?: string;
 }
 
 export interface SearchHistoryProps {
@@ -51,4 +55,6 @@ export interface SearchHistoryProps {
   activeIndex?: number;
   size?: SearchBarSize;
   className?: string;
+  listboxId?: string;
+  getOptionId?: (index: number) => string;
 }

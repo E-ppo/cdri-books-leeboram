@@ -18,15 +18,21 @@ const Icon = ({
     ...(height !== undefined ? { height } : {}),
   };
 
+  const ariaLabel = props['aria-label'];
+  const hasLabel = typeof ariaLabel === 'string' && ariaLabel.length > 0;
+  const ariaHidden = props['aria-hidden'] ?? (hasLabel ? undefined : true);
+  const role = props.role ?? (hasLabel ? 'img' : undefined);
+
   return (
     <span
       onClick={onClick}
+      aria-hidden={ariaHidden}
       style={{
         display: 'inline-block',
         cursor: onClick ? 'pointer' : 'default',
       }}
     >
-      <IconComponent {...props} {...sizeProps} />
+      <IconComponent {...props} {...sizeProps} aria-hidden={ariaHidden} role={role} />
     </span>
   );
 };
