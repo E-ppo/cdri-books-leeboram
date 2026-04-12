@@ -37,6 +37,7 @@ function Header({ title, navItems }: HeaderProps) {
           </NavLink>
         ))}
         <span
+          aria-hidden="true"
           className="absolute bottom-0 h-px bg-brand transition-all duration-300 ease-in-out"
           style={{ left: barStyle.left, width: barStyle.width }}
         />

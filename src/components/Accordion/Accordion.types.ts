@@ -6,6 +6,8 @@ export interface AccordionContextValue {
 export interface AccordionItemContextValue {
   value: string;
   isOpen: boolean;
+  triggerId: string;
+  contentId: string;
 }
 
 export interface AccordionProps {
