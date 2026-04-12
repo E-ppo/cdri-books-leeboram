@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useId, useState } from 'react';
 import { cn } from '@/utils/cn';
 import type {
   AccordionContextValue,
@@ -49,10 +49,13 @@ function Accordion({ children, multiple = false, defaultValue = [], className }:
 function Item({ value, children, className }: AccordionItemProps) {
   const { openValues } = useAccordionContext();
   const isOpen = openValues.has(value);
+  const baseId = useId();
+  const triggerId = `${baseId}-trigger`;
+  const contentId = `${baseId}-content`;
   const rendered = typeof children === 'function' ? children(isOpen) : children;
 
   return (
-    <AccordionItemContext.Provider value={{ value, isOpen }}>
+    <AccordionItemContext.Provider value={{ value, isOpen, triggerId, contentId }}>
       <div className={className}>{rendered}</div>
     </AccordionItemContext.Provider>
   );
@@ -60,16 +63,26 @@ function Item({ value, children, className }: AccordionItemProps) {
 
 function Trigger({ children, className, as = 'button' }: AccordionTriggerProps) {
   const { toggle } = useAccordionContext();
-  const { value, isOpen } = useAccordionItemContext();
+  const { value, isOpen, triggerId, contentId } = useAccordionItemContext();
   const Component = as;
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (as === 'div' && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault();
+      toggle(value);
+    }
+  };
 
   return (
     <Component
+      id={triggerId}
       type={as === 'button' ? 'button' : undefined}
       role={as === 'div' ? 'button' : undefined}
       tabIndex={as === 'div' ? 0 : undefined}
       onClick={() => toggle(value)}
+      onKeyDown={as === 'div' ? handleKeyDown : undefined}
       aria-expanded={isOpen}
+      aria-controls={contentId}
       className={cn('cursor-pointer', className)}
     >
       {children}
@@ -78,11 +91,15 @@ function Trigger({ children, className, as = 'button' }: AccordionTriggerProps) 
 }
 
 function Content({ children, className }: AccordionContentProps) {
-  const { isOpen } = useAccordionItemContext();
+  const { isOpen, triggerId, contentId } = useAccordionItemContext();
 
   if (!isOpen) return null;
 
-  return <div className={className}>{children}</div>;
+  return (
+    <div id={contentId} role="region" aria-labelledby={triggerId} className={className}>
+      {children}
+    </div>
+  );
 }
 
 Accordion.Item = Item;

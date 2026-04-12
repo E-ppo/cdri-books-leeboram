@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import SearchHeader, { DEFAULT_TARGET } from './components/SearchHeader/SearchHeader';
-import BookList from './components/BookList/BookList';
+import BookList from '@/components/BookList/BookList';
 import ResultCount from '@/components/ResultCount/ResultCount';
 import StatusMessage from '@/components/StatusMessage/StatusMessage';
 import iconBook from '@/assets/imgs/icon_book.png';
@@ -8,7 +8,9 @@ import { useBookSearch } from '@/hooks/useBookSearch/useBookSearch';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll/useInfiniteScroll';
 import type { BookSearchTarget } from '@/types/books';
 
-const bookIcon = <img src={iconBook} alt="book" className="w-20 h-20" />;
+const bookIcon = (
+  <img src={iconBook} alt="book" className="w-20 h-20" fetchPriority="high" />
+);
 
 export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState('');

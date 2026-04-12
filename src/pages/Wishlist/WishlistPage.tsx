@@ -1,10 +1,12 @@
 import ResultCount from '@/components/ResultCount/ResultCount';
 import StatusMessage from '@/components/StatusMessage/StatusMessage';
-import BookList from '@/pages/Search/components/BookList/BookList';
-import { useWishlistStore } from '@/stores/wishlistStore';
+import BookList from '@/components/BookList/BookList';
+import { useWishlistStore } from '@/stores/wishlistStore/wishlistStore';
 import iconBook from '@/assets/imgs/icon_book.png';
 
-const bookIcon = <img src={iconBook} alt="book" className="w-20 h-20" />;
+const bookIcon = (
+  <img src={iconBook} alt="book" className="w-20 h-20" fetchPriority="high" />
+);
 
 export default function WishlistPage() {
   const books = useWishlistStore(state => state.books);

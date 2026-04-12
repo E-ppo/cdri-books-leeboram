@@ -20,6 +20,28 @@ export default defineConfig({
     }
   },
   test: {
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html', 'lcov'],
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: [
+        'src/**/*.stories.tsx',
+        'src/**/*.types.ts',
+        'src/**/__fixtures__/**',
+        'src/test/**',
+        'src/main.tsx',
+        'src/vite-env.d.ts',
+        'src/App.tsx',
+        'src/Layout.tsx',
+        'src/constants/**',
+        'src/assets/**',
+        'src/components/Accordion/**',
+        'src/components/BookList/BookDetailCard.tsx',
+        'src/components/BookList/BookListRow.tsx',
+        'src/components/DetailSearchPopup/**',
+        'src/components/Dropdown/**',
+      ],
+    },
     projects: [
       {
         extends: true,
