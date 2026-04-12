@@ -1,7 +1,7 @@
 import Accordion from '@/components/Accordion/Accordion';
 import Button from '@/components/Button/Button';
 import Icon from '@/components/Icon/Icon';
-import { useWishlistStore } from '@/stores/wishlistStore';
+import { useWishlistStore } from '@/stores/wishlistStore/wishlistStore';
 import type { BookItemProps } from './BookList.types';
 
 export default function BookDetailCard({ book }: BookItemProps) {

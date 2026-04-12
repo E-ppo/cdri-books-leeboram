@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import BookList from './BookList';
-import { useWishlistStore } from '@/stores/wishlistStore';
+import { useWishlistStore } from '@/stores/wishlistStore/wishlistStore';
 import { sampleBooks } from './__fixtures__/books';
 
 const meta: Meta<typeof BookList> = {

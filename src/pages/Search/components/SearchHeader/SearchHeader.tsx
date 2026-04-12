@@ -1,7 +1,7 @@
 import DetailSearchPopup from '@/components/DetailSearchPopup/DetailSearchPopup';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import { SEARCH_CATEGORIES, type SearchParams } from '@/components/SearchBar/SearchBar.types';
-import { useSearchHistoryStore } from '@/stores/searchHistoryStore';
+import { useSearchHistoryStore } from '@/stores/searchHistoryStore/searchHistoryStore';
 import { useMediaQuery } from '@/hooks/useMediaQuery/useMediaQuery';
 import { useState } from 'react';
 import type { BookSearchTarget } from '@/types/books';

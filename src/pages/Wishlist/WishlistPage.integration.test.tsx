@@ -1,7 +1,7 @@
 import { describe, expect, it, beforeEach } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders, screen } from '@/test/test-utils';
-import { useWishlistStore } from '@/stores/wishlistStore';
+import { useWishlistStore } from '@/stores/wishlistStore/wishlistStore';
 import { sampleBooks } from '@/components/BookList/__fixtures__/books';
 import WishlistPage from './WishlistPage';
 
